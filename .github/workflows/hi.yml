@@ -11,3 +11,4 @@ jobs:
         run: |
           echo "The current bucket is: ${{env.qa.bucket}}"
           echo "The current distID is: ${{env.prod.distID}}"
+          echo "The current biba is: ${{env.qa}}"
