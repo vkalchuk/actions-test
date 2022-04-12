@@ -1,15 +1,18 @@
 name: learn-github-actions
 on: [push]
-env:
-  qa: ${{ toJSON("{"bucket":"qa-bucket", "distID":"qa-dist-id"}") }}
-  prod: ${{ fromJSON({"bucket":"prod-bucket", "distID":"prod-dist-id"}) }}
 jobs:
-  check-bats-version:
+  job1:
     runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
-      - name: printing
-        run: |
-          echo "The current bucket is: ${{env.qa.bucket}}"
-          echo "The current distID is: ${{env.prod.distID}}"
-          echo "The current qa is: ${{env.qa}}"
-          echo "The current prod is: ${{env.qa}}"
+      - id: set-matrix
+        run: echo "::set-output name=matrix::{\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}"
+  job2:
+    needs: job1
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{fromJSON(needs.job1.outputs.matrix)}}
+    steps:
+      - run: build
+
