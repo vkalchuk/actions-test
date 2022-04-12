@@ -1,7 +1,7 @@
 name: learn-github-actions
 on: [push]
 env:
-  qa: '${{ {"bucket": "qa-bucket", "distID": "qa-dist-id"} }}'
+  qa: ${{ {"bucket":"qa-bucket", "distID":"qa-dist-id"} }}
   prod: '${{ {"bucket": "prod-bucket", "distID": "prod-dist-id"} }}'
 jobs:
   check-bats-version:
