@@ -15,4 +15,4 @@ jobs:
     steps:
       - name: Deploy build to target
         run: |
-          echo build_id: ${{ inputs.build_id }} deploy_target: ${{ inputs.deploy_target }}
+          echo build_id: ${{ github.event.inputs.build_id }} deploy_target: ${{ github.event.inputs.deploy_target }}
