@@ -1,7 +1,7 @@
 name: learn-github-actions
 on: [push]
 env:
-  qa: ${{ toJSON({"bucket":"qa-bucket", "distID":"qa-dist-id"}) }}
+  qa: ${{ toJSON("{"bucket":"qa-bucket", "distID":"qa-dist-id"}") }}
   prod: ${{ fromJSON({"bucket":"prod-bucket", "distID":"prod-dist-id"}) }}
 jobs:
   check-bats-version:
