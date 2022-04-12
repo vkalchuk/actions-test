@@ -2,7 +2,7 @@ name: learn-github-actions
 on: [push]
 env:
   qa: fromJSON({"bucket":"qa-bucket", "distID":"qa-dist-id"})
-  prod: '${{ {"bucket": "prod-bucket", "distID": "prod-dist-id"} }}'
+  prod: fromJSON({"bucket":"prod-bucket", "distID":"prod-dist-id"})
 jobs:
   check-bats-version:
     runs-on: ubuntu-latest
@@ -10,4 +10,4 @@ jobs:
       - name: printing
         run: |
           echo "The current bucket is: ${{env.qa.bucket}}"
-          echo "The current distID is: ${{env.qa.distID}}"
+          echo "The current distID is: ${{env.prod.distID}}"
