@@ -1,8 +1,8 @@
 name: learn-github-actions
 on: [push]
 env:
-  qa: toJSON({"bucket":"qa-bucket", "distID":"qa-dist-id"})
-  prod: fromJSON({"bucket":"prod-bucket", "distID":"prod-dist-id"})
+  qa: ${{ toJSON({"bucket":"qa-bucket", "distID":"qa-dist-id"}) }}
+  prod: ${{ fromJSON({"bucket":"prod-bucket", "distID":"prod-dist-id"}) }}
 jobs:
   check-bats-version:
     runs-on: ubuntu-latest
@@ -11,4 +11,5 @@ jobs:
         run: |
           echo "The current bucket is: ${{env.qa.bucket}}"
           echo "The current distID is: ${{env.prod.distID}}"
-          echo "The current biba is: ${{env.qa}}"
+          echo "The current qa is: ${{env.qa}}"
+          echo "The current prod is: ${{env.qa}}"
