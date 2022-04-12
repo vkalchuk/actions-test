@@ -1,6 +1,6 @@
 name: Reusable deploy workflow
 on:
-  workflow_call:
+  workflow_dispatch:
     inputs:
       build_id:
         required: true
