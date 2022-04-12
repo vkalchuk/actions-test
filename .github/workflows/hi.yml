@@ -1,18 +1,22 @@
-name: learn-github-actions
-on: [push]
-jobs:
-  job1:
-    runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
-    steps:
-      - id: set-matrix
-        run: echo "::set-output name=matrix::{\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}"
-  job2:
-    needs: job1
-    runs-on: ubuntu-latest
-    strategy:
-      matrix: ${{fromJSON(needs.job1.outputs.matrix)}}
-    steps:
-      - run: build
+name: Reusable deploy workflow
+on:
+  workflow_call:
+    inputs:
+      build_id:
+        required: true
+        type: number
+      deploy_target:
+        required: true
+        type: string
+      perform_deploy:
+        required: true
+        type: boolean
 
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: ${{ inputs.perform_deploy == 'true' }}
+    steps:
+      - name: Deploy build to target
+        run: |
+          echo build_id: ${{ inputs.build_id }} deploy_target: ${{ inputs.deploy_target }}
